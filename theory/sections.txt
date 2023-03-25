@@ -1,0 +1,7 @@
+All x86_64 assembly files have three sections, the ".data" section, the ".bss" section and the ".text" section
+
+The data section is whee all data is defined before compilation
+
+The bss section is where data is allocated for future use
+
+The text section is where the actual code goes

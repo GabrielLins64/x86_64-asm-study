@@ -1,0 +1,14 @@
+Tips
+
+------------------------
+[Pasting a clipboarded image directly to a file]
+
+First, install ImageMagick, then, copy the image to the clipboard, finally, paste the image to the file:
+
+sudo apt-get install imagemagick
+xclip -selection clipboard -t image/png -o > image.png
+convert image.png file.png
+
+------------------------
+
+

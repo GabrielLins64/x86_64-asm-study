@@ -1,0 +1,43 @@
+System Call
+
+A system call, or a syscall, is when a program requests a service from the kernel
+System calls will differ by operating systems because differente OS use differente kernels
+All syscalls have an ID associated with them (a number)
+Syscalls also take arguments/params (a list of inputs)
+
+Syscall inputs by register (x84_64):
+Argument	Registers
+ID		rax
+1		rdi
+2		rsi
+3		rdx
+4		r10
+5		r8
+6		r9
+
+Syscall List (x84_64):
+syscall		rax	rdi		rsi	rdx	rd10	r8	r9
+syscall		ID	arg1		arg2	arg3	...	arg6
+sys_read	0	#filedescriptor	$buffer	#count
+sys_write	1	#filedescriptor	$buffer	#count
+sys_open	2	$filename	#flags	#mode
+sys_close	3	#filedescriptor			
+...		...	...		...	...	...	...
+pwrite		328	...		...	...	...	...
+
+*Legend:
+ID: Also used as NR. Abbreviation for "Number".
+#filedescriptor: In Unix and Unix-like computer operating systems, a file descriptor (FD, less frequently fildes) is non-negative integer representing a process-unique identifier (handle) for a file or other input/output resource, such as a pipe or network socket.
+$buffer: memory address to be loaded into the register
+
+Example:
+By using the Hello World asm program, we call the sys_write syscall. We have the following parameters:
+File Descriptor: 0 (std input), 1 (std output), 2 (std error).
+Buffer: Location of string to write
+Count: length of string
+So:
+sys_write	1	#filedescriptor	$buffer	#count
+Turn into:
+sys_write	1	1		ADDR	14
+len("Hello, World!\n") = 14
+
