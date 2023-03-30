@@ -1,0 +1,109 @@
+[Flags]
+
+Flags, like registers, hold data.
+Flags only hold 1 bit each
+Individual flags are part of a larger register
+
+Flag Symbol	Description
+-----------	-----------
+CF		Carry
+PF		Parity
+ZF		Zero
+SF		Sign
+OF		Overflow
+AF		Adjust
+IF		Interrupt Enabled
+
+[Pointers]
+
+Pointers are also registers that hold data.
+They "point to" data, meaning, they holds its memory address
+
+Pointer Name	Meaning		Description
+------------	-------		-----------
+rip(eip,ip)	Index pointer	Points to next address to be executed in the control flow
+rsp(esp,sp)	Stack pointer	Points to the top address of the stack
+rbp(ebp,bp)	Stack base	Points to the bottom of the stack
+...		...		...
+
+*rip: 64-bit version
+*eip: 32-bit version
+*ip : 16-bit version
+
+[Registers as Pointers]
+
+The default registers can be treated as pointers
+To treat a register as a pointer, surround its name with square brackets, for instance "rax" becomes "[rax]"
+
+The code below loads the value of the rbx register into the rax register
+mov rax, rbx 
+
+The code below loads the value the rbx register is pointing to into the rax register
+mov rax, [rbx]
+
+[Control Flow]
+
+All code runs from top to bottom by default. The direction a program flows is called the control flow
+The rip register holds the address of the next instruction to be executed. After each instruction, it is incremented by 1, making the control flow naturally flow from top to bottom
+
+[Jumps]
+
+Jumps can be used to jump to different parts of the code based on labels. They are used to divert program flow
+The general format of the jump is: jmp label
+Example:
+
+_start:
+	jmp _start
+
+[Comparisons]
+
+Comparisons allow programs to be able to take different paths based on certain conditions
+Comparisons are done on registers
+The general format of a comparison is: cmp register, register/value
+Example:
+
+cmp rax, 23
+cmp rax, rbx
+
+After a comparison is made, certain flags are set
+For instance, if we compare a and b with: cmp a, b
+
+if a == b -> ZF = 1 (is set to 1)
+if a != b -> ZF = 0 (is set to 0)
+And, in any of these cases, SF = msb(a-b), i.e., the Sign Flag is set to the most significant bit of a minus b
+
+[Conditional Jumps]
+
+After a comparison is made, a conditional jump, based on the status of the flags, can be made
+
+Symbol (signed)	Symbol (unsigned)	Results of cmp a, b
+je		-			a == b
+jne		-			a != b
+jg		ja			a > b
+jge		jae			a >= b
+jl		jb			a < b
+jle		jbe			a <= b
+jz		-			a == 0
+jnz		-			a != 0
+jo		-			Overflow occurred
+jno		-			Overflow didn't occur
+js		-			Jump if signed
+jns		-			Jump if not signed
+
+Example:
+
+The code below will jump to the address of label "_doThis" if and only if the value in the rax register equals 23
+
+cmp rax, 23
+je _doThis
+
+The same, but only if rax content is greater than rbx content
+
+cmp rax, rbx
+jg _doThis
+
+[Calls]
+
+Calls and jumps are essentially the same
+However, when "call" is used, the original position the call was made can be returned to using "ret"
+See "hello_call.asm" for a hello world example using call to call the subroutine

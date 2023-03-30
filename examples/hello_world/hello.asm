@@ -1,5 +1,5 @@
 section .data
-	text db "Hello, World!", 10
+	text db "Hello, World!", 0x0A
 			
 section .text
 	global _start
