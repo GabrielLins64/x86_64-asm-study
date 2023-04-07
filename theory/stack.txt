@@ -1,0 +1,21 @@
+[Stack]
+
+The stack, like registers, is another way to temporarily store data
+
+Actions:
+
+- Push: When you add data onto the top of the stack
+- Pop: When you remove data from the top of the stack
+- Peeking: When you look at the top of the stack without an action
+
+ASM for stack operations
+
+- push reg/value ; Pushes a value onto the stack
+- pop reg ; Pops a value off to the stack and stores it in reg
+- mov reg, [rsp] ; Stores the peek value in reg
+
+Reminder from the flags_and_pointers.txt:
+
+rsp(esp,sp) - Stack top pointer
+rbp(esp,sp) - Stack base pointer
+
