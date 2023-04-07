@@ -1,0 +1,23 @@
+[Math Operations]
+
+Math ops are used to mathematically manipulate registers
+The form of a math operation is typically:
+	operation register, value/register
+The first register is the subject of the operation
+For example:
+	add rax, 5
+	sub rbx, rax
+
+Operations List
+
+Op Name		Op Name (signed)	Description
+add a, b	-			a = a + b
+sub a, b	-			a = a - b
+mul reg		imul reg		rax = rax * reg
+div reg		idiv reg		rax = rax / reg
+neg reg		-			reg = -reg
+inc reg		-			reg = reg + 1
+dec reg		-			reg = reg - 1
+adc a, b	-			a = a + b + CF
+sbb a, b	-			a = a - b - CF
+
