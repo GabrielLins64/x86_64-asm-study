@@ -1,9 +1,0 @@
-Registers
-
-Registers are a part of the processor that temporarily holds memory
-In the x84_64 architecture, registers hold 64 bits
-This means each register can hold the values:
-	unsigned: 0 - 18446744073709551615
-	signed: -9223372036854775808 - 9223372036854775807
-
-
