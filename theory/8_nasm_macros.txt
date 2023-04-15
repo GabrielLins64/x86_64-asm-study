@@ -1,0 +1,89 @@
+[Macro]
+
+A macro is a single instruction that expands into a predefined set of instructions to perform a particular task
+
+Ex:
+the instruction "exit", when the program is compiled, is automatically converted to:
+	mov rax, 60
+	mov rdi, 0
+	syscall
+
+Defining macros
+
+%macro <name> <argc>
+	...
+	<macro body>
+	...
+%endmacro
+
+<name> Name of macro
+<argc> The number of arguments the macro will take
+<macro body> The definition of the macro
+
+Example of exit macro:
+
+%macro exit 0
+	mov rax, 60
+	mov rdi, 0
+	syscall
+%endmacro
+
+Within the macro body, the arguments are referenced using %1, %2, ... for the respective inputs
+
+Example:
+
+%macro printDigit 1
+	mov rax, %1
+	call _printRAXDigit
+%endmacro
+
+_start:
+	printDigit 3
+	printDigit 4
+	exit
+
+> Local labels
+
+If a macro contains a label and it is used more than once, the code will be expanded to the same label defined more than once. And that will raise an error. In order to avoid that, we can make a unique label inside a macro by using %% before label names. Example:
+
+%macro freeze 0
+%%loop:
+	jmp %%loop
+%endmacro
+
+> Defining Values with EQU
+
+EQU is used for defining constants for future use. Code example:
+
+STDIN equ 0
+STDOUT equ 1
+STDERR equ 2
+SYS_READ equ 0
+SYS_WRITE equ 1
+SYS_EXIT equ 60
+
+section .data
+	text db "Hello, world!", 10
+
+section .text
+	global _start
+
+_start:
+	mov rax, SYS_WRITE
+	mov rdi, STDOUT
+	mov rsi, text
+	mov rdx, 14
+	syscall
+
+	mov rax, SYS_EXIT
+	mov rdi, 0
+	syscall
+
+> Including External Files
+
+A single assembly program can be broken up into multiple files by using "include". It will load an external file's code and insert it into the position in which it is included upon compilation. Macros and EQU definitions are often defined inside of included files.
+
+The include syntax is:
+
+%include "filename.asm"
+
