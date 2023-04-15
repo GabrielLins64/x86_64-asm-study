@@ -1,11 +1,11 @@
 System Call
 
 A system call, or a syscall, is when a program requests a service from the kernel
-System calls will differ by operating systems because differente OS use differente kernels
+System calls will differ by operating systems because different OS use different kernels
 All syscalls have an ID associated with them (a number)
 Syscalls also take arguments/params (a list of inputs)
 
-Syscall inputs by register (x84_64):
+Syscall inputs by register (x86_64):
 Argument	Registers
 ID		rax
 1		rdi
@@ -15,7 +15,7 @@ ID		rax
 5		r8
 6		r9
 
-Syscall List (x84_64):
+Syscall List (x86_64):
 syscall		rax	rdi		rsi	rdx	rd10	r8	r9
 syscall		ID	arg1		arg2	arg3	...	arg6
 sys_read	0	#filedescriptor	$buffer	#count
