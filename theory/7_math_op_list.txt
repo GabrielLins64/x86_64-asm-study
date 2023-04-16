@@ -21,3 +21,4 @@ dec reg		-			reg = reg - 1
 adc a, b	-			a = a + b + CF
 sbb a, b	-			a = a - b - CF
 
+*When we make a div operation, the remainder is set into the rdx register. When the rdx isn't 0, then it will be concated onto the rax register. If you want to avoid this to occur, simply set rdx to 0 before performing the div operation
